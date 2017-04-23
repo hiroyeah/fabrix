@@ -12,25 +12,25 @@
 
 //
 
-//‰Šúİ’è
+//åˆæœŸè¨­å®š
 //
 var xx = 0;
 var yy = 0;
-// F’l‚Ì”{”
+// Få€¤ã®å€æ•°
 var trans  = 12;
 
-//e’l‚ªâ‘Î’l‚Å‚ ‚é‚½‚ßÏZ
+//eå€¤ãŒçµ¶å¯¾å€¤ã§ã‚ã‚‹ãŸã‚ç©ç®—
 var extrude = 0; 
 var extrudetwo = 0; 
-// ‰·“x
+// æ¸©åº¦
 var heatbed = 55;
 var hotend = 195;
 var hotendtwo = 160;
 
-// ƒŠƒgƒ‰ƒNƒg‚Ì’·‚³
+// ãƒªãƒˆãƒ©ã‚¯ãƒˆã®é•·ã•
 var retract = 2; 
 
-// ƒwƒbƒh‚Ì”
+// ãƒ˜ãƒƒãƒ‰ã®æ•°
 var extrudenum = 1;
 function setTextQ() {
 extrudenum = 1;
@@ -39,7 +39,7 @@ function setTextR() {
 extrudenum = 2;
     }
 
-// ƒwƒbƒh‚ÌØ‚è‘Ö‚¦•Ï”(E‚Ì‚Ü‚ÜT0/T1 or A/B)
+// ãƒ˜ãƒƒãƒ‰ã®åˆ‡ã‚Šæ›¿ãˆå¤‰æ•°(Eã®ã¾ã¾T0/T1 or A/B)
 var headnum = 1;
 function setTextO() {
 headnum = 1;
@@ -48,8 +48,9 @@ function setTextP() {
 headnum = 2;
     }
 
-// E‚Ì’l‚ğ©“®ŒvZ
-var eassign = 1;
+// Eã®å€¤ã‚’è‡ªå‹•è¨ˆç®—
+//var eassign = 1;  //originalã€€///////////////////////////////////////
+var eassign = 2;  //mod  ç†ç”±ï¼šåˆæœŸæ¡ä»¶ã«ã¦selectTãŒtrueã¨ãªã£ã¦ã„ã‚‹ãŸã‚ ///////////////////////////////////////////////////////
 function setTextS() {
 eassign = 1;
     }
@@ -60,18 +61,18 @@ function setTextU() {
 eassign = 3;
     }
 
-// E‚ğ’·‚³‚ÉüŒ`‚Åİ’è‚·‚éê‡‚ÌŒW”
+// Eã‚’é•·ã•ã«ç·šå½¢ã§è¨­å®šã™ã‚‹å ´åˆã®ä¿‚æ•°
 var eratio = 0.5;
 
 
-// E‚ğ’´Ú×İ’è‚·‚éê‡‚ÌƒtƒBƒ‰ƒƒ“ƒg’¼Œa
+// Eã‚’è¶…è©³ç´°è¨­å®šã™ã‚‹å ´åˆã®ãƒ•ã‚£ãƒ©ãƒ¡ãƒ³ãƒˆç›´å¾„
 
 var filament = 1.75
 
-// E‚ğ’´Ú×İ’è‚·‚éê‡‚Ì‘w‚Ì‚‚³
+// Eã‚’è¶…è©³ç´°è¨­å®šã™ã‚‹å ´åˆã®å±¤ã®é«˜ã•
 var extrudeheight = 0.2;
 
-// E‚ğ’´Ú×İ’è‚·‚éê‡‚Ì‘w‚Ì•
+// Eã‚’è¶…è©³ç´°è¨­å®šã™ã‚‹å ´åˆã®å±¤ã®å¹…
 var extrudewidth = 0.42
 
 
@@ -89,78 +90,78 @@ saveFilen = saveFilen + ".gco";
 var saveFile = new File(saveFilen);
 var resultArr = new Array;
 
-//ƒŒƒCƒ„[‚Ì‘”‚ğ”‚¦‚é
+//ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç·æ•°ã‚’æ•°ãˆã‚‹
 var n = activeDocument.layers.length; 
 var ns = activeDocument.layers[0].layers.length; 
-//ƒpƒX‚Ì‘”‚ğ‹‚ß‚é
+//ãƒ‘ã‚¹ã®ç·æ•°ã‚’æ±‚ã‚ã‚‹
 var pObj1 = activeDocument.pathItems; 
 
-// ‰Šúƒpƒlƒ‹
+// åˆæœŸãƒ‘ãƒãƒ«
 // Reference: https://github.com/nvkelso/illustrator-scripts/blob/master/other-authors/jwundes/SelectPathsBySize.jsx
-var dlg = new Window('dialog', 'G-CODE•ÏŠ·İ’èƒpƒlƒ‹'); 
+var dlg = new Window('dialog', 'G-CODEå¤‰æ›è¨­å®šãƒ‘ãƒãƒ«'); 
 
 dlg.location = [500,50];
 var defaultValueA = 50;
 var defaultValueB = 50;
-var defaultValue1 = trans ; //FŒW”@12 (*100= 1200)
+var defaultValue1 = trans ; //Fä¿‚æ•°ã€€12 (*100= 1200)
 var defaultValue3 = heatbed; //temparature
 var defaultValue4 = hotend; //temparature
 var defaultValue5 = hotendtwo; //temparature
 var defaultValue7 = retract; //rectract
-var defaultValue10 = eratio; //EŒW”@0.5
-var defaultValue11 = filament; //ƒtƒBƒ‰ƒƒ“ƒg•
-var defaultValue12 = extrudeheight; //ˆóü‘w‚‚³
-var defaultValue13 = extrudewidth; //ˆóü•
+var defaultValue10 = eratio; //Eä¿‚æ•°ã€€0.5
+var defaultValue11 = filament; //ãƒ•ã‚£ãƒ©ãƒ¡ãƒ³ãƒˆå¹…
+var defaultValue12 = extrudeheight; //å°åˆ·å±¤é«˜ã•
+var defaultValue13 = extrudewidth; //å°åˆ·å¹…
 
 
 
      dlg.alertBtnsPnl0 = dlg.add('group',undefined, 'Threshold:');
     (dlg.alertBtnsPnl0.titleEt = dlg.alertBtnsPnl0.add('edittext', [100,15,160,35], 0)).helpTip = "X"; 
      dlg.alertBtnsPnl0.titleEt.text = defaultValueA; 
-    (dlg.alertBtnsPnl0.titleSt = dlg.alertBtnsPnl0.add('statictext', [10,15,360,35], 'Œ´“_ƒVƒtƒgX )')).helpTip = "Pixels."; 
+    (dlg.alertBtnsPnl0.titleSt = dlg.alertBtnsPnl0.add('statictext', [10,15,360,35], 'åŸç‚¹ã‚·ãƒ•ãƒˆX )')).helpTip = "Pixels."; 
      dlg.alertBtnsPnl0.orientation='row';
 
      dlg.alertBtnsPnl1 = dlg.add('group',undefined, 'Threshold:');
     (dlg.alertBtnsPnl1.titleEt = dlg.alertBtnsPnl1.add('edittext', [100,15,160,35], 0)).helpTip = "Y"; 
      dlg.alertBtnsPnl1.titleEt.text = defaultValueB; 
-    (dlg.alertBtnsPnl1.titleSt = dlg.alertBtnsPnl1.add('statictext', [10,15,360,35], 'Œ´“_ƒVƒtƒgY ')).helpTip = "Pixels."; 
+    (dlg.alertBtnsPnl1.titleSt = dlg.alertBtnsPnl1.add('statictext', [10,15,360,35], 'åŸç‚¹ã‚·ãƒ•ãƒˆY ')).helpTip = "Pixels."; 
      dlg.alertBtnsPnl1.orientation='row';
 
      dlg.alertBtnsPnl2 = dlg.add('group',undefined, 'Threshold:');
     (dlg.alertBtnsPnl2.titleEt = dlg.alertBtnsPnl2.add('edittext', [100,15,160,35], 0)).helpTip = ""; 
      dlg.alertBtnsPnl2.titleEt.text = defaultValue1; 
-    (dlg.alertBtnsPnl2.titleSt = dlg.alertBtnsPnl2.add('statictext', [10,15,360,35], 'ü‚Ì“§–¾“x‚ğF(‘¬“x)’l‚É•ÏŠ·‚·‚éŒW”')).helpTip = "times"; 
+    (dlg.alertBtnsPnl2.titleSt = dlg.alertBtnsPnl2.add('statictext', [10,15,360,35], 'ç·šã®é€æ˜åº¦ã‚’F(é€Ÿåº¦)å€¤ã«å¤‰æ›ã™ã‚‹ä¿‚æ•°')).helpTip = "times"; 
      dlg.alertBtnsPnl2.orientation='row';
      
       dlg.alertBtnsPnl4 = dlg.add('group',undefined, 'Threshold:');
     (dlg.alertBtnsPnl4.titleEt = dlg.alertBtnsPnl4.add('edittext', [100,15,160,35], 0)).helpTip = ""; 
      dlg.alertBtnsPnl4.titleEt.text = defaultValue3; 
-    (dlg.alertBtnsPnl4.titleSt = dlg.alertBtnsPnl4.add('statictext', [10,15,360,35], 'ƒq[ƒgƒxƒbƒh‚Ì‰·“x (M104)')).helpTip = "c"; 
+    (dlg.alertBtnsPnl4.titleSt = dlg.alertBtnsPnl4.add('statictext', [10,15,360,35], 'ãƒ’ãƒ¼ãƒˆãƒ™ãƒƒãƒ‰ã®æ¸©åº¦ (M104)')).helpTip = "c"; 
      dlg.alertBtnsPnl4.orientation='row';
      
       dlg.alertBtnsPnl5 = dlg.add('group',undefined, 'Threshold:');
     (dlg.alertBtnsPnl5.titleEt = dlg.alertBtnsPnl5.add('edittext', [100,15,160,35], 0)).helpTip = ""; 
      dlg.alertBtnsPnl5.titleEt.text = defaultValue4; 
-    (dlg.alertBtnsPnl5.titleSt = dlg.alertBtnsPnl5.add('statictext', [10,15,360,35],'ƒGƒNƒXƒgƒ‹[ƒ_1‚Ì‰·“x  (T0)')).helpTip = "c"; 
+    (dlg.alertBtnsPnl5.titleSt = dlg.alertBtnsPnl5.add('statictext', [10,15,360,35],'ã‚¨ã‚¯ã‚¹ãƒˆãƒ«ãƒ¼ãƒ€1ã®æ¸©åº¦  (T0)')).helpTip = "c"; 
      dlg.alertBtnsPnl5.orientation='row';
      
       dlg.alertBtnsPnl6 = dlg.add('group',undefined, 'Threshold:');
     (dlg.alertBtnsPnl6.titleEt = dlg.alertBtnsPnl6.add('edittext', [100,15,160,35], 0)).helpTip = ""; 
      dlg.alertBtnsPnl6.titleEt.text = defaultValue5; 
-    (dlg.alertBtnsPnl6.titleSt = dlg.alertBtnsPnl6.add('statictext', [10,15,360,35],'ƒGƒNƒXƒgƒ‹[ƒ_2‚Ì‰·“x(T1)')).helpTip = "c"; 
+    (dlg.alertBtnsPnl6.titleSt = dlg.alertBtnsPnl6.add('statictext', [10,15,360,35],'ã‚¨ã‚¯ã‚¹ãƒˆãƒ«ãƒ¼ãƒ€2ã®æ¸©åº¦(T1)')).helpTip = "c"; 
      dlg.alertBtnsPnl6.orientation='row';
     
      dlg.alertBtnsPnl7 = dlg.add('group',undefined, 'Threshold:');
     (dlg.alertBtnsPnl7.titleEt = dlg.alertBtnsPnl7.add('edittext', [100,15,160,35], 0)).helpTip = ""; 
      dlg.alertBtnsPnl7.titleEt.text = defaultValue7; 
-    (dlg.alertBtnsPnl7.titleSt = dlg.alertBtnsPnl7.add('statictext', [10,15,360,35], 'ƒŠƒgƒ‰ƒNƒg‚Ì’·‚³ (mm)')).helpTip = "times"; 
+    (dlg.alertBtnsPnl7.titleSt = dlg.alertBtnsPnl7.add('statictext', [10,15,360,35], 'ãƒªãƒˆãƒ©ã‚¯ãƒˆã®é•·ã• (mm)')).helpTip = "times"; 
      dlg.alertBtnsPnl7.orientation='row';
 	 
      dlg.alertBtnsPnl8 = dlg.add('group',undefined, 'Threshold:');
-     dlg.dimsPnl8 = dlg.add('panel', undefined, 'ƒGƒNƒXƒgƒ‹[ƒ_”'); 
+     dlg.dimsPnl8 = dlg.add('panel', undefined, 'ã‚¨ã‚¯ã‚¹ãƒˆãƒ«ãƒ¼ãƒ€æ•°'); 
      dlg.dimsPnl8.orientation='row';
-    (dlg.dimsPnl8.selectQ = dlg.dimsPnl8.add('radiobutton', [5,115,180,135], '1ƒwƒbƒh' )).helpTip = ""; 
-    (dlg.dimsPnl8.selectR = dlg.dimsPnl8.add('radiobutton', [5,140,180,160], '2ƒwƒbƒh' )).helpTip = "";
+    (dlg.dimsPnl8.selectQ = dlg.dimsPnl8.add('radiobutton', [5,115,180,135], '1ãƒ˜ãƒƒãƒ‰' )).helpTip = ""; 
+    (dlg.dimsPnl8.selectR = dlg.dimsPnl8.add('radiobutton', [5,140,180,160], '2ãƒ˜ãƒƒãƒ‰' )).helpTip = "";
 
 
 	dlg.dimsPnl8.selectQ.value = true; 
@@ -168,11 +169,11 @@ var defaultValue13 = extrudewidth; //ˆóü•
 	dlg.dimsPnl8.selectR.onClick= setTextR;
 
 
-	(dlg.dimsPnl9 = dlg.add('panel', undefined, 'E’l‚ÌŒvZ•û–@')).helpTip = "ü•ª‚Ì’·‚³‚É”ä—á‚µ‚ÄE’l‚ğ©“®Š·Z"; 
+	(dlg.dimsPnl9 = dlg.add('panel', undefined, 'Eå€¤ã®è¨ˆç®—æ–¹æ³•')).helpTip = "ç·šåˆ†ã®é•·ã•ã«æ¯”ä¾‹ã—ã¦Eå€¤ã‚’è‡ªå‹•æ›ç®—"; 
 	dlg.dimsPnl9.orientation='row';
-	(dlg.dimsPnl9.selectS = dlg.dimsPnl9.add('radiobutton', [5,115,180,135], '‘¾‚³ŒÂ•Êw’è' )).helpTip = ""; 
-	(dlg.dimsPnl9.selectT = dlg.dimsPnl9.add('radiobutton', [5,140,180,160], 'ü•ª‚Ì’·‚³‚É”ä—á' )).helpTip = "";
-	(dlg.dimsPnl9.selectU = dlg.dimsPnl9.add('radiobutton', [5,140,180,160], '’´Ú×İ’è‚ğ‚·‚é' )).helpTip = "";
+	(dlg.dimsPnl9.selectS = dlg.dimsPnl9.add('radiobutton', [5,115,180,135], 'å¤ªã•å€‹åˆ¥æŒ‡å®š' )).helpTip = ""; 
+	(dlg.dimsPnl9.selectT = dlg.dimsPnl9.add('radiobutton', [5,140,180,160], 'ç·šåˆ†ã®é•·ã•ã«æ¯”ä¾‹' )).helpTip = "";
+	(dlg.dimsPnl9.selectU = dlg.dimsPnl9.add('radiobutton', [5,140,180,160], 'è¶…è©³ç´°è¨­å®šã‚’ã™ã‚‹' )).helpTip = "";
 
 	dlg.dimsPnl9.selectT.value = true; 
 
@@ -181,34 +182,34 @@ var defaultValue13 = extrudewidth; //ˆóü•
 	dlg.dimsPnl9.selectU.onClick= setTextU;
 
 
-	(dlg.dimsPnl10b = dlg.add('panel', undefined, 'ã‹L‚Åu‘¾‚³ŒÂ•Êw’èv‚©uü•ª‚Ì’·‚³‚É”ä—áv‚ğ‘I‘ğ‚µ‚½ê‡‚Í‰º‹L‚Ì‚P€–Ú‚¾‚¯“ü—Í')).helpTip = "ã‹L‚Åuü•ª‚Ì’·‚³‚É”ä—áv‚ğ‘I‘ğ‚µ‚½ê‡‚Í‰º‹L‚Ì‚P€–Ú‚¾‚¯“ü—Í"; 
-	(dlg.dimsPnl10 = dlg.add('group', undefined, 'ã‹L‚Åu‘¾‚³ŒÂ•Êw’èvuü•ª‚Ì’·‚³‚É”ä—áv‚ğ‘I‘ğ‚µ‚½ê‡‚Í‰º‹L‚Ì‚P€–Ú‚¾‚¯“ü—Í')).helpTip = ""; 
+	(dlg.dimsPnl10b = dlg.add('panel', undefined, 'ä¸Šè¨˜ã§ã€Œå¤ªã•å€‹åˆ¥æŒ‡å®šã€ã‹ã€Œç·šåˆ†ã®é•·ã•ã«æ¯”ä¾‹ã€ã‚’é¸æŠã—ãŸå ´åˆã¯ä¸‹è¨˜ã®ï¼‘é …ç›®ã ã‘å…¥åŠ›')).helpTip = "ä¸Šè¨˜ã§ã€Œç·šåˆ†ã®é•·ã•ã«æ¯”ä¾‹ã€ã‚’é¸æŠã—ãŸå ´åˆã¯ä¸‹è¨˜ã®ï¼‘é …ç›®ã ã‘å…¥åŠ›"; 
+	(dlg.dimsPnl10 = dlg.add('group', undefined, 'ä¸Šè¨˜ã§ã€Œå¤ªã•å€‹åˆ¥æŒ‡å®šã€ã€Œç·šåˆ†ã®é•·ã•ã«æ¯”ä¾‹ã€ã‚’é¸æŠã—ãŸå ´åˆã¯ä¸‹è¨˜ã®ï¼‘é …ç›®ã ã‘å…¥åŠ›')).helpTip = ""; 
 
      (dlg.dimsPnl10.titleEt = dlg.dimsPnl10.add('edittext', [100,15,160,35], 0)).helpTip = ""; 
       dlg.dimsPnl10.titleEt.text = defaultValue10; 
-    (dlg.dimsPnl10.titleSt = dlg.dimsPnl10.add('statictext', [10,15,360,35], 'E•ÏŠ·æ”')).helpTip = "times"; 
+    (dlg.dimsPnl10.titleSt = dlg.dimsPnl10.add('statictext', [10,15,360,35], 'Eå¤‰æ›ä¹—æ•°')).helpTip = "times"; 
      dlg.dimsPnl10.orientation='row';
 	 
 
 
-	(dlg.dimsPnl11b = dlg.add('panel', undefined, 'ã‹L‚Åu’´Ú×İ’è‚ğ‚·‚év‚ğ‘I‘ğ‚µ‚½ê‡‚Íã‹L‚Ì‚P€–Ú‚É‰Á‚¦‚ÄA‰º‹L‚Ì‚R€–Ú‚ğ“ü—Í')).helpTip = "ã‹L‚Åu’´Ú×İ’è‚ğ‚·‚év‚ğ‘I‘ğ‚µ‚½ê‡‚Íã‹L‚Ì‚P€–Ú‚É‰Á‚¦‚ÄA‰º‹L‚Ì‚R€–Ú‚ğ“ü—Í"; 
-	(dlg.dimsPnl11 = dlg.add('group', undefined, 'ã‹L‚Åu’´Ú×İ’è‚ğ‚·‚év‚ğ‘I‘ğ‚µ‚½ê‡‚Íã‹L‚Ì‚P€–Ú‚É‰Á‚¦‚ÄA‰º‹L‚Ì‚R€–Ú‚ğ“ü—Í')).helpTip = ""; 
+	(dlg.dimsPnl11b = dlg.add('panel', undefined, 'ä¸Šè¨˜ã§ã€Œè¶…è©³ç´°è¨­å®šã‚’ã™ã‚‹ã€ã‚’é¸æŠã—ãŸå ´åˆã¯ä¸Šè¨˜ã®ï¼‘é …ç›®ã«åŠ ãˆã¦ã€ä¸‹è¨˜ã®ï¼“é …ç›®ã‚’å…¥åŠ›')).helpTip = "ä¸Šè¨˜ã§ã€Œè¶…è©³ç´°è¨­å®šã‚’ã™ã‚‹ã€ã‚’é¸æŠã—ãŸå ´åˆã¯ä¸Šè¨˜ã®ï¼‘é …ç›®ã«åŠ ãˆã¦ã€ä¸‹è¨˜ã®ï¼“é …ç›®ã‚’å…¥åŠ›"; 
+	(dlg.dimsPnl11 = dlg.add('group', undefined, 'ä¸Šè¨˜ã§ã€Œè¶…è©³ç´°è¨­å®šã‚’ã™ã‚‹ã€ã‚’é¸æŠã—ãŸå ´åˆã¯ä¸Šè¨˜ã®ï¼‘é …ç›®ã«åŠ ãˆã¦ã€ä¸‹è¨˜ã®ï¼“é …ç›®ã‚’å…¥åŠ›')).helpTip = ""; 
      (dlg.dimsPnl11.titleEt = dlg.dimsPnl11.add('edittext', [100,15,160,35], 0)).helpTip = "";  
       dlg.dimsPnl11.titleEt.text = defaultValue11; 
-    (dlg.dimsPnl11.titleSt = dlg.dimsPnl11.add('statictext', [10,15,360,35], 'ƒtƒBƒ‰ƒƒ“ƒg‚Ì’¼Œa(mm)')).helpTip = "times"; 
+    (dlg.dimsPnl11.titleSt = dlg.dimsPnl11.add('statictext', [10,15,360,35], 'ãƒ•ã‚£ãƒ©ãƒ¡ãƒ³ãƒˆã®ç›´å¾„(mm)')).helpTip = "times"; 
      dlg.dimsPnl11.orientation='row';
 
 
      dlg.alertBtnsPnl12 = dlg.add('group',undefined, 'Threshold:');
      (dlg.alertBtnsPnl12.titleEt = dlg.alertBtnsPnl12.add('edittext', [100,15,160,35], 0)).helpTip = "";  
       dlg.alertBtnsPnl12.titleEt.text = defaultValue12; 
-    (dlg.alertBtnsPnl12.titleSt = dlg.alertBtnsPnl12.add('statictext', [10,15,360,35], 'ˆóü‚³‚ê‚½1‘w‚Ì‚‚³(mm)')).helpTip = "times"; 
+    (dlg.alertBtnsPnl12.titleSt = dlg.alertBtnsPnl12.add('statictext', [10,15,360,35], 'å°åˆ·ã•ã‚ŒãŸ1å±¤ã®é«˜ã•(mm)')).helpTip = "times"; 
      dlg.alertBtnsPnl12.orientation='row';
 
      dlg.alertBtnsPnl13 = dlg.add('group',undefined, 'Threshold:');
      (dlg.alertBtnsPnl13.titleEt = dlg.alertBtnsPnl13.add('edittext', [100,15,160,35], 0)).helpTip = ""; 
       dlg.alertBtnsPnl13.titleEt.text = defaultValue13; 
-    (dlg.alertBtnsPnl13.titleSt = dlg.alertBtnsPnl13.add('statictext', [10,15,360,35], 'ˆóü‚³‚ê‚½1‘w‚Ì•(mm)')).helpTip = "times"; 
+    (dlg.alertBtnsPnl13.titleSt = dlg.alertBtnsPnl13.add('statictext', [10,15,360,35], 'å°åˆ·ã•ã‚ŒãŸ1å±¤ã®å¹…(mm)')).helpTip = "times"; 
      dlg.alertBtnsPnl13.orientation='row';
 
 
@@ -240,7 +241,7 @@ extrudewidth =  parseFloat(   dlg.alertBtnsPnl13.titleEt.text);
   //   alert( n + " layers to  "+ pObj1.length +" paths "); 
      
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// G-COde ¶¬
+// G-COde ç”Ÿæˆ
 //
      resultArr.push("; G-Code generated from G-Illustrator developed by Hiroya Tanaka");
      resultArr.push("; "+saveFilen ); 
@@ -248,46 +249,104 @@ extrudewidth =  parseFloat(   dlg.alertBtnsPnl13.titleEt.text);
      resultArr.push("; ");  
 
 //--
-//===ˆÈ‰ºHeader===
+//===ä»¥ä¸‹Header===
 
-resultArr.push("; ’èŒ^Header");
+resultArr.push("; å®šå‹Header");
 resultArr.push("M107")
 resultArr.push("M190 S"+heatbed) // set bed temperature
-resultArr.push("M104 S"+hotend+ "T0");
-resultArr.push("M104 S"+hotendtwo+ "T1");
+
+// original â†“/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// resultArr.push("M104 S"+hotend+ "T0");
+// resultArr.push("M104 S"+hotendtwo+ "T1");
+// original â†‘
+// modâ†“ã€€ãƒ˜ãƒƒãƒ‰ã®è¨­å®šæ•°ã«åˆã‚ã›ã‚‹ãŸã‚ã€‚ææ–™ã«ã‚ˆã£ã¦ã¯ç„¦ã’ä»˜ãå¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§ãã‚Œã‚’å›é¿ã™ã‚‹æ„å‘³åˆã„ã‚‚ã‚ã‚Šã¾ã™ã€‚
+if (headnum==1){
+    resultArr.push("M104 S"+hotend+ " T0");
+}
+if (headnum==2){
+    resultArr.push("M104 S"+hotend+ " T0");
+    resultArr.push("M104 S"+hotendtwo+ " T1");
+}
+// modâ†‘/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 resultArr.push("M891 P0");
 resultArr.push("T0");
 resultArr.push("G28");
 resultArr.push("G90");
 resultArr.push("G1 Z5 F5000");
-resultArr.push("M109 S"+hotend+ "T0");
-resultArr.push("M109 S"+hotendtwo+ "T1");
+
+// originalâ†“/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//resultArr.push("M109 S"+hotend+ "T0");
+//resultArr.push("M109 S"+hotendtwo+ "T1");
+// originalâ†‘
+// modâ†“
+if (headnum==1){
+    resultArr.push("M109 S"+hotend+ " T0");
+}
+if (headnum==2){
+    resultArr.push("M109 S"+hotend+ " T0");
+    resultArr.push("M109 S"+hotendtwo+ " T1");
+}
+// modâ†‘/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 resultArr.push("G1 X10 Y10");
-
-
 
 resultArr.push("G21"); // set units to millimeters
 resultArr.push("G90"); // use absolute coordinates
 resultArr.push("M82"); // use absolute distances for extrusion
 
-resultArr.push("T0");
-resultArr.push("G92 E0");
-if (retract>0) {
-    resultArr.push("; ----Rectract Motion (Ready)-----");
-  extrude = extrude - retract; //ƒŠƒgƒ‰ƒNƒg
-  resultArr.push("G1 E"+extrude+" F1800.00000");
-    resultArr.push("; --------------------------");
+//originalâ†“/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//resultArr.push("T0");
+//resultArr.push("G92 E0");
+//if (retract>0) {
+//    resultArr.push("; ----Rectract Motion (Ready)-----");
+//  extrude = extrude - retract; //ãƒªãƒˆãƒ©ã‚¯ãƒˆ
+//  resultArr.push("G1 E"+extrude+" F1800.00000");
+//    resultArr.push("; --------------------------");
+//}
+//
+//resultArr.push("T1");
+//resultArr.push("G92 E0");
+//if (retract>0) {
+//    resultArr.push("; ----Rectract Motion (Ready)-----");
+//  extrudetwo = extrudetwo - retract; //ãƒªãƒˆãƒ©ã‚¯ãƒˆ
+//  resultArr.push("G1 E"+extrudetwo +" F1800.00000");
+//    resultArr.push("; --------------------------");
+//
+//}
+//
+//originalâ†‘
+//modâ†“ ç†ç”±ã“ã¡ã‚‰ã‚‚ãƒ˜ãƒƒãƒ‰æ•°ã«åˆã‚ã›ã¾ã—ãŸ
+if (headnum==1){
+    resultArr.push("T0");
+    resultArr.push("G92 E0");
+    if (retract>0) {
+        resultArr.push("; ----Retract Motion (Ready)-----");
+        extrude = extrude - retract; //ãƒªãƒˆãƒ©ã‚¯ãƒˆ
+        resultArr.push("G1 E"+extrude+" F1800.00000");
+        resultArr.push("; --------------------------");
+    }
 }
 
-resultArr.push("T1");
-resultArr.push("G92 E0");
-if (retract>0) {
-    resultArr.push("; ----Rectract Motion (Ready)-----");
-  extrudetwo = extrudetwo - retract; //ƒŠƒgƒ‰ƒNƒg
-  resultArr.push("G1 E"+extrudetwo +" F1800.00000");
-    resultArr.push("; --------------------------");
-
+if (headnum==2){
+    resultArr.push("T0");
+    resultArr.push("G92 E0");
+    if (retract>0) {
+        resultArr.push("; ----Retract Motion (Ready)-----");
+        extrude = extrude - retract; //ãƒªãƒˆãƒ©ã‚¯ãƒˆ
+        resultArr.push("G1 E"+extrude+" F1800.00000");
+        resultArr.push("; --------------------------");
+    }
+    resultArr.push("T1");
+    resultArr.push("G92 E0");
+    if (retract>0) {
+        resultArr.push("; ----Retract Motion (Ready)-----");
+        extrudetwo = extrudetwo - retract; //ãƒªãƒˆãƒ©ã‚¯ãƒˆ
+        resultArr.push("G1 E"+extrudetwo +" F1800.00000");
+        resultArr.push("; --------------------------");
+    }
 }
+//modâ†‘/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 resultArr.push("M106"); // Fan On
 resultArr.push("; M106 Fan On");
@@ -324,11 +383,18 @@ for(i = n-1; i>=0; i--){
               resultArr.push(";  layer: "+String(n-1-i) + "  path: "+j +" points: "+k +"/"+(pObj2[j].pathPoints.length-1));  
 
 
-//point‚©‚çmm‚Ö‚Ì•ÏŠ·imm~2.834645j
-//mm‚©‚çpoint‚Ö‚Ì•ÏŠ· (point/2.834645j
+//pointã‹ã‚‰mmã¸ã®å¤‰æ›ï¼ˆmmÃ—2.834645ï¼‰
+//mmã‹ã‚‰pointã¸ã®å¤‰æ› (point/2.834645ï¼‰
           
       var x =   activeDocument.layers[i].pathItems[j].pathPoints[k].anchor[0]; 
       var y =   activeDocument.layers[i].pathItems[j].pathPoints[k].anchor[1];
+// modâ†“ã€€//////////////////////////////////////////////////////////////////////////////	  
+        x = x/ 2.834645;
+        y = y/ 2.834645;
+        
+        x = x + shiftx;
+        y = y  + shifty;      
+//modâ†‘ã€€ç†ç”± Eå€¤ã‚’è¨ˆç®—ã™ã‚‹éš›ã€pointã‹ã‚‰mmã«å¤‰æ›ã—ã€ã‚·ãƒ•ãƒˆé‡ã‚’è¸ã¾ãˆãŸä¸Šã§è¨ˆç®—ã•ã›ãªã„ã¨ã€å®Ÿéš›ã¨ãšã‚Œã¦ã—ã¾ã†ãŸã‚ã€‚      
 	  
 	  if(eassign==1){
       var e =  eratio  * activeDocument.layers[i].pathItems[j].strokeWidth;
@@ -345,23 +411,28 @@ for(i = n-1; i>=0; i--){
       var h=    activeDocument.layers[i].pathItems[j].opacity;
       var z=    activeDocument.layers[i].name;
 
-      x = x/ 2.834645;
-      y = y/ 2.834645;
+//origin â†“
+//      x = x/ 2.834645;
+//      y = y/ 2.834645;
+//originâ†‘ã€€å˜ä½æ›ç®—ã‚’ä¸Šã«æŒã£ã¦è¡Œã£ãŸãŸã‚
       h = h* trans;
-      e = e/ 2.834645;
-
-      x = x +  shiftx;
-      y = y  + shifty;
+// originâ†“      
+//     e = e/ 2.834645;
+//originâ†‘ å˜ä½mmã«ã¦eå€¤ã‚’è¨ˆç®—ã—ã¦ã„ã‚‹ãŸã‚å˜ä½å¤‰æ›ä¸è¦
+//origin â†“
+//      x = x +  shiftx;
+//      y = y  + shifty;
+//originâ†‘ã€€ä¸Šã«æŒã£ã¦è¡Œã£ãŸãŸã‚
 
 //alert(activeDocument.layers[i].pathItems[j].strokeDashes);
 
 
-// Å‰‚Ì“_(K=0)‚Ìê‡
+// æœ€åˆã®ç‚¹(K=0)ã®å ´åˆ
 if (k==0) {
-// Å‰‚Ì“_‚Ü‚Å‚Í÷‰‚ğo‚³‚È‚¢‚Å’P‚È‚éˆÚ“®
+// æœ€åˆã®ç‚¹ã¾ã§ã¯æ¨¹è„‚ã‚’å‡ºã•ãªã„ã§å˜ãªã‚‹ç§»å‹•
 
 
-// ”jü‚Ìê‡
+// ç ´ç·šã®å ´åˆ
  if (parseFloat(activeDocument.layers[i].pathItems[j].strokeDashes) > 0) {
 
 
@@ -374,14 +445,14 @@ if (k==0) {
 
 
   if (retract>0) {
-  extrudetwo = extrudetwo + retract; //ƒŠƒgƒ‰ƒNƒg
+  extrudetwo = extrudetwo + retract; //ãƒªãƒˆãƒ©ã‚¯ãƒˆ
     resultArr.push("; ----Rectract Motion (Start)-----");
   resultArr.push("G1 E"+extrudetwo +" F1800.00000");
     resultArr.push("; --------------------------------");
 }	
 } 
 
-// Àü‚Ìê‡
+// å®Ÿç·šã®å ´åˆ
  else {
 
 
@@ -393,7 +464,7 @@ if (k==0) {
     yy=y;
 
   if (retract>0 ) {
-  extrude = extrude + retract; //ƒŠƒgƒ‰ƒNƒg
+  extrude = extrude + retract; //ãƒªãƒˆãƒ©ã‚¯ãƒˆ
     resultArr.push("; ----Rectract Motion (Start)----");
   resultArr.push("G1 E"+extrude+" F1800.00000");
     resultArr.push("; -------------------------------");
@@ -402,10 +473,10 @@ if (k==0) {
 }
 
 
-// Å‰‚Ì“_(K=0)‚Ìê‡'ˆÈŠO'
+// æœ€åˆã®ç‚¹(K=0)ã®å ´åˆ'ä»¥å¤–'
  else {
      if (extrudenum == 1) { 
-     //ƒwƒbƒh”‚ª1‚Â
+     //ãƒ˜ãƒƒãƒ‰æ•°ãŒ1ã¤
 
      extrude = extrude + e;
       resultArr.push("T0");
@@ -421,7 +492,7 @@ if (k==0) {
       
 
       if (extrudenum == 2) {
-    //ƒwƒbƒh”‚ª2‚Â
+    //ãƒ˜ãƒƒãƒ‰æ•°ãŒ2ã¤
       if (parseFloat(activeDocument.layers[i].pathItems[j].strokeDashes) > 0 ) {
            extrudetwo = extrudetwo + e; 
 
@@ -450,7 +521,7 @@ if (k==0) {
 
 
 if (k==pObj2[j].pathPoints.length-1){
-//ƒAƒ“ƒJ[‚ÌÅŒã‚Å‚Ü‚½ƒŠƒgƒ‰ƒNƒg
+//ã‚¢ãƒ³ã‚«ãƒ¼ã®æœ€å¾Œã§ã¾ãŸãƒªãƒˆãƒ©ã‚¯ãƒˆ
 
 
 if (activeDocument.layers[i].pathItems[j].closed) {
@@ -460,6 +531,13 @@ if (activeDocument.layers[i].pathItems[j].closed) {
 
       var x =   activeDocument.layers[i].pathItems[j].pathPoints[0].anchor[0]; 
       var y =   activeDocument.layers[i].pathItems[j].pathPoints[0].anchor[1];
+// modâ†“ã€€//////////////////////////////////////////////////////////////////////////////	  
+        x = x/ 2.834645;
+        y = y/ 2.834645;
+        
+        x = x + shiftx;
+        y = y  + shifty;      
+//modâ†‘ã€€ç†ç”± Eå€¤ã‚’è¨ˆç®—ã™ã‚‹éš›ã€pointã‹ã‚‰mmã«å¤‰æ›ã—ã€ã‚·ãƒ•ãƒˆé‡ã‚’è¸ã¾ãˆãŸä¸Šã§è¨ˆç®—ã•ã›ãªã„ã¨ã€å®Ÿéš›ã¨ãšã‚Œã¦ã—ã¾ã†ãŸã‚ã€‚
 
 	  if(eassign==1){
       var e =  eratio  * activeDocument.layers[i].pathItems[j].strokeWidth;
@@ -476,16 +554,21 @@ if (activeDocument.layers[i].pathItems[j].closed) {
       var h=    activeDocument.layers[i].pathItems[j].opacity;
       var z=    activeDocument.layers[i].name;
 
-      x = x/ 2.834645;
-      y = y/ 2.834645;
+//origin â†“
+//      x = x/ 2.834645;
+//      y = y/ 2.834645;
+//originâ†‘ã€€å˜ä½æ›ç®—ã‚’ä¸Šã«æŒã£ã¦è¡Œã£ãŸãŸã‚
       h = h* trans;
-      e = e/ 2.834645;
+// originâ†“      
+//     e = e/ 2.834645;
+//originâ†‘ å˜ä½mmã«ã¦eå€¤ã‚’è¨ˆç®—ã—ã¦ã„ã‚‹ãŸã‚å˜ä½å¤‰æ›ä¸è¦
+//origin â†“
+//      x = x +  shiftx;
+//      y = y  + shifty;
+//originâ†‘ã€€ä¸Šã«æŒã£ã¦è¡Œã£ãŸãŸã‚
 
-      x = x +  shiftx;
-      y = y  + shifty;
 
-
-//ƒwƒbƒh”‚ª‚P‚Â
+//ãƒ˜ãƒƒãƒ‰æ•°ãŒï¼‘ã¤
   if (extrudenum == 1) {
  
 
@@ -501,12 +584,12 @@ if (activeDocument.layers[i].pathItems[j].closed) {
       }
       
 
-//ƒwƒbƒh”‚ª‚Q‚Â
+//ãƒ˜ãƒƒãƒ‰æ•°ãŒï¼’ã¤
       if (extrudenum == 2) {
       if (parseFloat(activeDocument.layers[i].pathItems[j].strokeDashes) > 0 ) {
            extrudetwo = extrudetwo + e; 
    resultArr.push("T1");
-@
+ã€€
       resultArr.push("G1 X"+x+" Y"+y+ " Z"+z+" E"+extrudetwo+" F"+h); 
 
     xx=x; 
@@ -531,7 +614,7 @@ if (activeDocument.layers[i].pathItems[j].closed) {
 
 
 
-////ƒŠƒgƒ‰ƒNƒg
+////ãƒªãƒˆãƒ©ã‚¯ãƒˆ
 
  if (parseFloat(activeDocument.layers[i].pathItems[j].strokeDashes) > 0 ) {
 
@@ -539,7 +622,7 @@ if (activeDocument.layers[i].pathItems[j].closed) {
 	resultArr.push("; ----Rectract Motion (End) -----");
     resultArr.push("T1");
 
-  extrudetwo = extrudetwo - retract; //ƒŠƒgƒ‰ƒNƒg
+  extrudetwo = extrudetwo - retract; //ãƒªãƒˆãƒ©ã‚¯ãƒˆ
   resultArr.push("G1 E"+extrudetwo +" F1800.00000");
     resultArr.push("; -----------------------^^^^^---");
 }	
@@ -549,7 +632,7 @@ if (activeDocument.layers[i].pathItems[j].closed) {
 
   resultArr.push("; ----Rectract Motion (End) -----");
   resultArr.push("T0");
-  extrude = extrude - retract; //ƒŠƒgƒ‰ƒNƒg
+  extrude = extrude - retract; //ãƒªãƒˆãƒ©ã‚¯ãƒˆ
   resultArr.push("G1 E"+extrude+" F1800.00000");
   resultArr.push("; -------------------------------");
 }
@@ -570,7 +653,7 @@ resultArr.push("; Layer:"+activeDocument.layers[i].name+" failed.");
 
  
 
-//--’èŒ^Footer
+//--å®šå‹Footer
 resultArr.push(";Footer");
 resultArr.push("M107");
 resultArr.push("M400");
@@ -587,7 +670,7 @@ resultArr.push("M701");
 resultArr.push("M107");
 resultArr.push("; M107 Fan Off");
 resultArr.push("M84");
-resultArr.push("; ’èŒ^Footer‚±‚±‚Ü‚Å");
+resultArr.push("; å®šå‹Footerã“ã“ã¾ã§");
 //--
 
 
@@ -597,7 +680,7 @@ var success = saveFile.write(resultArr.join("\n"));
 saveFile.close();
 
 
-// “Ç‚İ‚İI—¹@•\¦‚ğo‚·
+// èª­ã¿è¾¼ã¿çµ‚äº†ã€€è¡¨ç¤ºã‚’å‡ºã™
 if(success){
      alert( n + " layers to "+ pObj1.length +" paths are written in G-CODE"); 
     } else {
