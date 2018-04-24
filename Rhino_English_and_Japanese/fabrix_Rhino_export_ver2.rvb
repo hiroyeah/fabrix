@@ -264,7 +264,11 @@ Sub processPreparedCurve(curve)
 				processSubCurve(explodedCurve(i))
 			next
                         processSubCurvelast(explodedCurve(uBound(explodedCurve)))
+	
+	If uBound(explodedCurve)>1 Then
 	Rhino.deleteObjects(explodedCurve)
+	end if
+	
 End Sub
 
 
