@@ -13,6 +13,11 @@
 '// 
 '///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+'// G-COMMAND
+'// G0 始点に移動したあとにGコマンドが来る。
+'// G1 出力しながら次の点に移動する。移動を終えた点にGコマンドを実行する。
+
+
 
 Option Explicit
 
@@ -71,7 +76,7 @@ Sub main
 	Dim selectedCurves : selectedCurves = Rhino.getObjects("Select Polyline(s)...", 4, ,true,false) 
 	if isNull(selectedCurves) then Exit Sub 
 	Dim selectedPoints : selectedPoints = Rhino.getObjects("Select Point(s) with Names for G/M-CODE command...", 1, ,true,false) 
-
+	
 	Dim i
 	Redim closedCurves(-1)
 	Redim openCurves(-1)
@@ -107,11 +112,11 @@ Sub main
 	Rhino.enableRedraw(False)
 
 	Dim preparedCurves : preparedCurves = prepareCurves(selectedCurves) 'make sure all is in order
-	
-
     preparedCurves = sort(preparedCurves)
 			
-			
+	Dim preparedPoints : preparedPoints = selectedPoints
+
+	
 	if isNull(ERR_MSG) then
 
 		if inputparams then
@@ -163,7 +168,7 @@ else
 head = 2
 End If 
 
-						processPreparedCurve(preparedCurves(i))
+					Call processPreparedCurve(preparedCurves(i),preparedPoints)
 					next
 					NC_EndProgram
 					NC_FILE.Close()
@@ -193,7 +198,7 @@ Function inputparams
 		EXTRUSION_RATIO = Rhino.GetReal ("EXTRUSION_Multiplier", 0.5)
 		if isNull(EXTRUSION_RATIO) then Exit Function
 
-		ret = Rhino.GetReal ("Retract (mm)", 2)
+		ret = Rhino.GetReal ("Retract (mm)", 0)
 		if isNull(ret) then Exit Function
 
 		heatbed = Rhino.GetReal ("heatbed temparature(c)",  55)
@@ -250,7 +255,7 @@ End Function
 '*********************************************************************
 '* explode one polycurve and create gcode for it
 '*********************************************************************
-Sub processPreparedCurve(curve)
+Sub processPreparedCurve(curve,spoints)
 
 
 
@@ -258,14 +263,18 @@ Sub processPreparedCurve(curve)
 
 	Dim curveStartPoint : curveStartPoint = Rhino.curveStartPoint(curve)
        '	Dim isOpenCurve : isOpenCurve = not Rhino.isCurveClosed(curve)
-         Dim explodedCurve : explodedCurve = Rhino.explodeCurves(curve)
-        NC_PrepareCut(curveStartPoint)
+         Dim explodedCurve : explodedCurve = Rhino.explodeCurves(curve,false,true)
+            Call NC_PrepareCut(curveStartPoint,spoints)
         	Dim i
 			For i = 0 To uBound(explodedCurve)-1 
-				processSubCurve(explodedCurve(i))
+			Call processSubCurve(explodedCurve(i),spoints)
 			next
-                        processSubCurvelast(explodedCurve(uBound(explodedCurve)))
+            Call processSubCurvelast(explodedCurve(uBound(explodedCurve)),spoints)
+	
+	If uBound(explodedCurve)>1 Then
 	Rhino.deleteObjects(explodedCurve)
+	end if
+	
 End Sub
 
 
@@ -274,9 +283,10 @@ End Sub
 '*********************************************************************
 '* create gcode for arc or line
 '*********************************************************************
-Function processSubCurve(subcurve)
+Function processSubCurve(subcurve,spoints)
 
 	Dim point : point = Rhino.curveEndPoint(subcurve)
+
 
 
 If head = 1 Then
@@ -315,12 +325,43 @@ else
 
 End If
 
+ 	'point parse 
+	    Dim poiObject 
+			'Rhino.print("point parsing....")
+		    'Rhino.print(ubound(spoints))
+				
+			
+			If IsNull(spoints) Then 
+			
+			' null
+			'Rhino.print("point null!")
+			
+			Else 
+			'Rhino.print("point exists!")
+			
+			For Each poiObject In spoints
+			'Rhino.print(poiObject)
+		
+            'Rhino.print(Rhino.PointCoordinates(poiObject)(0) & " ... " & NC_NUMBER(point(0)) & " ... " &  Rhino.PointCoordinates(poiObject)(1) & " ... " &  NC_NUMBER(point(1)) & " ... " &  Rhino.PointCoordinates(poiObject)(2) & " ... " &  NC_NUMBER(point(2))) 
+			If ((Rhino.PointCoordinates(poiObject)(0) = NC_NUMBER(point(0))) And (Rhino.PointCoordinates(poiObject)(1) = NC_NUMBER(point(1))) And (Rhino.PointCoordinates(poiObject)(2) = NC_NUMBER(point(2)) )) Then
+			'Rhino.print("match!")
+	        NC_FILE.writeLine("; point G-Special-command")
+		    NC_FILE.writeLine(Rhino.ObjectName(poiObject))
+		   
+        
+           End If  
+
+            Next
+           End IF
+	'kokomade
 	
 End Function
 
-Function processSubCurvelast(subcurve)
+Function processSubCurvelast(subcurve,spoints)
 
 	Dim point : point = Rhino.curveEndPoint(subcurve)
+	
+
 
 If head = 1 Then
         
@@ -333,7 +374,7 @@ If head = 1 Then
         
           end if
 		  
-		         	NC_FILE.writeLine ("T0")
+		        NC_FILE.writeLine ("T0")
                 NC_FILE.writeLine()
                 NC_FILE.writeLine("; path point T0 last")
 		        NC_FILE.writeLine ("G1 X" & NC_NUMBER(point(0)) & " Y" & NC_NUMBER(point(1))& " Z" & NC_NUMBER(point(2)) & " E" & extrude & " F" & FEED_RATE)
@@ -376,6 +417,35 @@ else
 End If
 End If
 
+		'point parse 
+	    Dim poiObject 
+			'Rhino.print("point parsing....")
+		    'Rhino.print(ubound(spoints))
+				
+			
+			If IsNull(spoints) Then 
+			
+			' null
+			'Rhino.print("point null!")
+			
+			Else 
+			'Rhino.print("point exists!")
+			
+			For Each poiObject In spoints
+			'Rhino.print(poiObject)
+		
+            'Rhino.print(Rhino.PointCoordinates(poiObject)(0) & " ... " & NC_NUMBER(point(0)) & " ... " &  Rhino.PointCoordinates(poiObject)(1) & " ... " &  NC_NUMBER(point(1)) & " ... " &  Rhino.PointCoordinates(poiObject)(2) & " ... " &  NC_NUMBER(point(2))) 
+			If ((Rhino.PointCoordinates(poiObject)(0) = NC_NUMBER(point(0))) And (Rhino.PointCoordinates(poiObject)(1) = NC_NUMBER(point(1))) And (Rhino.PointCoordinates(poiObject)(2) = NC_NUMBER(point(2)) )) Then
+			'Rhino.print("match!")
+	        NC_FILE.writeLine("; point G-Special-command")
+		    NC_FILE.writeLine(Rhino.ObjectName(poiObject))
+		   
+        
+           End If  
+
+            Next
+           End IF
+	'kokomade
 
 End Function
 
@@ -545,7 +615,8 @@ NC_FILE.writeLine("")
 
 End Sub
 
-Sub NC_PrepareCut(point)
+Sub NC_PrepareCut(point,spoints)
+ 
 
 
 	NC_FILE.writeLine (";...set new start point...")
@@ -553,6 +624,37 @@ Sub NC_PrepareCut(point)
         lastx= NC_NUMBER(point(0))
         lasty= NC_NUMBER(point(1))
         lastz= NC_NUMBER(point(2))
+			
+			
+	'point parse 
+	    Dim poiObject 
+			'Rhino.print("point parsing....")
+		    'Rhino.print(ubound(spoints))
+				
+			
+			If IsNull(spoints) Then 
+			
+			' null
+			'Rhino.print("point null!")
+			
+			Else 
+			'Rhino.print("point exists!")
+			
+			For Each poiObject In spoints
+			'Rhino.print(poiObject)
+		
+            'Rhino.print(Rhino.PointCoordinates(poiObject)(0) & " ... " & NC_NUMBER(point(0)) & " ... " &  Rhino.PointCoordinates(poiObject)(1) & " ... " &  NC_NUMBER(point(1)) & " ... " &  Rhino.PointCoordinates(poiObject)(2) & " ... " &  NC_NUMBER(point(2))) 
+			If ((Rhino.PointCoordinates(poiObject)(0) = NC_NUMBER(point(0))) And (Rhino.PointCoordinates(poiObject)(1) = NC_NUMBER(point(1))) And (Rhino.PointCoordinates(poiObject)(2) = NC_NUMBER(point(2)) )) Then
+			'Rhino.print("match!")
+	        NC_FILE.writeLine("; point G-Special-command")
+		    NC_FILE.writeLine(Rhino.ObjectName(poiObject))
+		   
+        
+           End If  
+
+            Next
+           End IF
+	'kokomade
 
 if ret>0 then
   NC_FILE.writeLine()
