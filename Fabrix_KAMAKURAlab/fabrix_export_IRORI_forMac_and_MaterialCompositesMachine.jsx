@@ -286,8 +286,8 @@ for(i = n-1; i>=0; i--){
                      resultArr.push("; ");
                      resultArr.push("; ");
 
-              resultArr.push("; layer "+String(n-1-i);
-                               resultArr.push("; ");
+              resultArr.push("; layer "+String(n-1-i));
+                         //      resultArr.push("; ");
 
       for (j=pObj2.length-1; j>-1; j--){
 

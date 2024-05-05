@@ -286,8 +286,8 @@ for(i = n-1; i>=0; i--){
                      resultArr.push("; ");
                      resultArr.push("; ");
 
-              resultArr.push("; layer "+String(n-1-i);
-                               resultArr.push("; ");
+              resultArr.push("; layer "+String(n-1-i));
+                               //resultArr.push("; ");
 
       for (j=pObj2.length-1; j>-1; j--){
 
@@ -383,7 +383,7 @@ if (k==0) {
     yy=y;
 
   if (retract>0 ) {
-  extrude = extrude + retract; //リトラクト
+  extrude = extrude + retract; 
     resultArr.push("; ----Rectract Motion (Start)----");
   resultArr.push("G1 E"+extrude+" F1800.00000");
     resultArr.push("; -------------------------------");
@@ -541,7 +541,7 @@ if (activeDocument.layers[i].pathItems[j].closed) {
 	resultArr.push("; ----Rectract Motion (End) -----");
     resultArr.push("T1");
 
-  extrudetwo = extrudetwo - retract; //リトラクト
+  extrudetwo = extrudetwo - retract; 
   resultArr.push("G1 E"+extrudetwo +" F1800.00000");
     resultArr.push("; -----------------------^^^^^---");
 }
